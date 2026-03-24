@@ -1,0 +1,285 @@
+IMPORTANT: This LeadHunter AI project is already working.
+
+Do NOT change the frontend UI.
+Do NOT modify React pages, components, styling, or layout.
+Do NOT regenerate the project.
+Do NOT delete any existing code.
+
+The frontend must remain exactly the same.
+
+Only extend the backend logic and APIs so the current frontend continues to work normally.
+
+---
+
+OBJECTIVE
+
+Improve backend capabilities while keeping the current frontend untouched.
+
+Add the following features:
+
+stable job agent
+job suggestions API
+daily job refresh
+dashboard filtering APIs
+auto apply API
+better error handling
+
+---
+
+1. CASE INSENSITIVE SEARCH
+
+Normalize job role input before any search.
+
+Example:
+
+const normalizedRole = jobRole.toLowerCase().trim()
+
+These inputs must behave the same:
+
+AI Engineer
+ai engineer
+AI ENGINEER
+Ai Engineer
+
+---
+
+2. JOB ROLE SUGGESTION API
+
+Create a new endpoint:
+
+GET /api/job-suggestions
+
+Return the following roles:
+
+Graphic Designer
+Software Engineer
+Full Stack Developer
+Frontend Developer
+Backend Developer
+Web Developer
+Mobile App Developer
+Android Developer
+iOS Developer
+Game Developer
+Embedded Systems Developer
+Data Scientist
+Data Analyst
+Machine Learning Engineer
+AI Engineer
+NLP Engineer
+Computer Vision Engineer
+Data Engineer
+Business Intelligence Analyst
+Deep Learning Engineer
+Data Architect
+DevOps Engineer
+Cloud Engineer
+Site Reliability Engineer
+Cloud Architect
+Infrastructure Engineer
+Platform Engineer
+Cybersecurity Analyst
+Ethical Hacker
+Penetration Tester
+Security Engineer
+Security Architect
+Incident Response Analyst
+System Administrator
+Network Engineer
+Network Security Engineer
+Database Administrator
+Systems Engineer
+Product Manager
+Technical Program Manager
+IT Consultant
+Business Analyst
+Solutions Architect
+QA Engineer
+Software Tester
+Automation Test Engineer
+Performance Test Engineer
+
+Frontend may optionally consume this API in the future but do not change the frontend.
+
+---
+
+3. JOB SEARCH AGENT
+
+Enhance the existing job agent logic.
+
+When /api/start-agent runs:
+
+Search these platforms:
+
+LinkedIn
+Naukri
+Internshala
+Wellfound
+
+Extract:
+
+job_title
+company_name
+location
+job_url
+source
+
+Ensure:
+
+minimum 20 jobs
+minimum 10 companies
+
+Remove duplicates.
+
+---
+
+4. SAFE EXECUTION
+
+Use Promise.allSettled so if one platform fails the others still run.
+
+Example:
+
+await Promise.allSettled([
+searchLinkedIn(),
+searchNaukri(),
+searchInternshala(),
+searchWellfound()
+])
+
+---
+
+5. DAILY JOB REFRESH
+
+Add a backend cron scheduler.
+
+Every 24 hours run job discovery automatically for popular roles:
+
+software engineer
+ai engineer
+data scientist
+frontend developer
+
+Insert new jobs into database.
+
+---
+
+6. FILTER SUPPORT API
+
+Extend existing jobs endpoint.
+
+GET /api/jobs
+
+Support query parameters:
+
+role
+location
+source
+dateRange
+
+Examples:
+
+/api/jobs?role=ai engineer
+/api/jobs?source=linkedin
+/api/jobs?dateRange=week
+
+This allows frontend filtering without UI changes.
+
+---
+
+7. DUPLICATE PROTECTION
+
+Before inserting jobs:
+
+Check if job_url already exists.
+
+Skip duplicates.
+
+---
+
+8. AUTO APPLY API
+
+Create a new endpoint:
+
+POST /api/auto-apply
+
+Payload:
+
+{
+jobUrl: "...",
+jobTitle: "...",
+company: "..."
+}
+
+Workflow:
+
+open job URL
+detect apply button
+simulate application steps
+record status
+
+Create table:
+
+applications
+
+columns:
+
+job_title
+company_name
+job_url
+status
+applied_at
+
+Statuses:
+
+pending
+applied
+failed
+
+---
+
+9. AGENT SAFETY
+
+Prevent multiple agents running at the same time.
+
+If /start-agent is called while agent running:
+
+return message:
+
+"Agent already running"
+
+---
+
+10. LOGGING
+
+Add clear logs:
+
+Agent started
+Searching LinkedIn jobs...
+Searching Naukri jobs...
+Searching Internshala internships...
+Searching Wellfound jobs...
+Jobs saved to database
+Agent completed
+
+---
+
+11. ERROR HANDLING
+
+If scraping fails:
+
+Use fallback demo data.
+
+Still return:
+
+20 jobs
+10 companies
+
+Do not crash the server.
+
+---
+
+FINAL REQUIREMENT
+
+The existing frontend must remain unchanged.
+
+All improvements must happen only in backend logic and APIs.

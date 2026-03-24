@@ -1,0 +1,7 @@
+
+> @workspace/api-server@0.0.0 dev C:\Users\kesha\OneDrive\Desktop\Lead-Hunter-Agent-master\artifacts\api-server
+> cross-env NODE_ENV=development tsx ./src/index.ts
+
+'cross-env' is not recognized as an internal or external command,
+operable program or batch file.
+ΓÇëELIFECYCLEΓÇë Command failed with exit code 1.

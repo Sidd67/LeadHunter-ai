@@ -1,0 +1,152 @@
+IMPORTANT: This LeadHunter AI project is already working.
+
+Do NOT modify the frontend UI.
+Do NOT change React components or layout.
+Do NOT regenerate the project.
+Do NOT delete existing routes.
+
+Only extend backend logic so the current frontend continues to work.
+
+---
+
+OBJECTIVE
+
+Improve the job agent so that:
+
+1. Job links are real and clickable
+2. Only current job openings are returned
+3. Jobs can be exported as a CSV file
+
+---
+
+1. REAL JOB LINKS
+
+Ensure every job returned by the agent contains a valid job URL.
+
+Example:
+
+https://www.linkedin.com/jobs/view/...
+https://www.naukri.com/job-listings/...
+https://internshala.com/internship/detail/...
+https://wellfound.com/jobs/...
+
+Before saving a job:
+
+Validate that job_url starts with:
+
+https://linkedin.com
+https://www.linkedin.com
+https://naukri.com
+https://www.naukri.com
+https://internshala.com
+https://wellfound.com
+
+If URL is invalid, skip the job.
+
+---
+
+2. CURRENT JOB OPENINGS ONLY
+
+Filter jobs so that only recent openings are shown.
+
+Rules:
+
+Ignore jobs older than 30 days.
+
+When scraping:
+
+Check posting date.
+
+If posting date is older than 30 days, discard it.
+
+Save only active openings.
+
+---
+
+3. CSV DOWNLOAD FEATURE
+
+Create a new backend route:
+
+GET /api/jobs/export-csv
+
+Steps:
+
+1. Fetch jobs from database
+2. Convert jobs to CSV format
+3. Send CSV file as download
+
+CSV columns:
+
+Job Title
+Company
+Location
+Source
+Job URL
+Date Added
+
+Example CSV format:
+
+Job Title,Company,Location,Source,Job URL,Date Added
+AI Engineer,TechLabs,Remote,LinkedIn,https://linkedin.com/job/123,2026-03-15
+
+---
+
+4. CSV IMPLEMENTATION
+
+Use a Node.js CSV library such as:
+
+json2csv
+
+Example workflow:
+
+Fetch jobs from database
+Convert JSON → CSV
+Return file with:
+
+Content-Type: text/csv
+Content-Disposition: attachment
+
+---
+
+5. API RESPONSE
+
+When user hits:
+
+/api/jobs/export-csv
+
+Return downloadable CSV file.
+
+---
+
+6. SAFETY
+
+Do not modify existing endpoints:
+
+/api/start-agent
+/api/jobs
+/api/agent-status
+/api/leads
+
+Only add the CSV export endpoint and improve job validation.
+
+---
+
+7. LOGGING
+
+Add logs for debugging:
+
+Validating job URL...
+Filtering outdated jobs...
+Generating CSV export...
+
+---
+
+FINAL GOAL
+
+Ensure the system returns:
+
+real job links
+only current openings
+CSV export of job listings
+
+without modifying the existing frontend UI.

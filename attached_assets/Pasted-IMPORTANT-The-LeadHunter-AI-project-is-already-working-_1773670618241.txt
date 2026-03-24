@@ -1,0 +1,180 @@
+IMPORTANT: The LeadHunter AI project is already working.
+
+Do NOT regenerate the project.
+Do NOT modify the frontend UI.
+Do NOT delete existing routes or database tables.
+
+Only improve job title standardization so that job listings match the predefined job role list.
+
+---
+
+OBJECTIVE
+
+Ensure that job titles collected from LinkedIn, Naukri, Internshala, and Wellfound are mapped to a predefined list of roles.
+
+The system should normalize job titles so that similar titles map to the correct role.
+
+---
+
+1. PREDEFINED JOB ROLE LIST
+
+Use the following roles as the standard job titles:
+
+Graphic Designer
+Software Engineer
+Full Stack Developer
+Frontend Developer
+Backend Developer
+Web Developer
+Mobile App Developer
+Android Developer
+iOS Developer
+Game Developer
+Embedded Systems Developer
+
+AI / Data Roles
+
+Data Scientist
+Data Analyst
+Machine Learning Engineer
+AI Engineer
+NLP Engineer
+Computer Vision Engineer
+Data Engineer
+Business Intelligence Analyst
+Deep Learning Engineer
+Data Architect
+
+Cloud / DevOps Roles
+
+DevOps Engineer
+Cloud Engineer
+Site Reliability Engineer
+Cloud Architect
+Infrastructure Engineer
+Platform Engineer
+
+Cybersecurity Roles
+
+Cybersecurity Analyst
+Ethical Hacker
+Penetration Tester
+Security Engineer
+Security Architect
+Incident Response Analyst
+
+Systems / Networking Roles
+
+System Administrator
+Network Engineer
+Network Security Engineer
+Database Administrator
+Systems Engineer
+
+Product / Business Roles
+
+Product Manager
+Technical Program Manager
+IT Consultant
+Business Analyst
+Solutions Architect
+
+Testing / QA Roles
+
+QA Engineer
+Software Tester
+Automation Test Engineer
+Performance Test Engineer
+
+---
+
+2. TITLE NORMALIZATION
+
+When scraping job titles:
+
+Convert to lowercase and remove punctuation.
+
+Example:
+
+"Senior Software Engineer" → "software engineer"
+"AI/ML Engineer" → "ai engineer"
+
+---
+
+3. TITLE MAPPING
+
+Match scraped titles to the closest predefined role.
+
+Example mappings:
+
+Senior Software Engineer → Software Engineer
+Junior Software Developer → Software Engineer
+React Developer → Frontend Developer
+Node.js Developer → Backend Developer
+ML Engineer → Machine Learning Engineer
+AI/ML Engineer → AI Engineer
+DevOps Specialist → DevOps Engineer
+
+---
+
+4. TITLE CLEANING
+
+Before saving:
+
+Trim whitespace
+Remove newline characters
+Remove prefixes such as:
+
+Senior
+Junior
+Lead
+Principal
+
+Keep the standardized role title.
+
+---
+
+5. SAVE STANDARDIZED TITLE
+
+Save only the normalized role in the database.
+
+Example:
+
+Original scraped title:
+
+"Senior AI/ML Engineer"
+
+Saved title:
+
+"AI Engineer"
+
+---
+
+6. FILTER RESULTS
+
+Ensure jobs shown in dashboard belong to one of the predefined roles.
+
+If a job title cannot be matched to any role, skip it.
+
+---
+
+7. LOGGING
+
+Add logs:
+
+Original title: Senior AI/ML Engineer
+Mapped role: AI Engineer
+
+---
+
+FINAL RESULT
+
+When users search for roles such as:
+
+Software Engineer
+AI Engineer
+Data Scientist
+Frontend Developer
+Backend Developer
+
+The dashboard should show clean standardized job titles from the predefined role list.

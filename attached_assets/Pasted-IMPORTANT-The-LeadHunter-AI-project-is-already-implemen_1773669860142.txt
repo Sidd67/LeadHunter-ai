@@ -1,0 +1,280 @@
+IMPORTANT: The LeadHunter AI project is already implemented and working in this Replit workspace.
+
+Do NOT regenerate the project.
+Do NOT delete existing files.
+Do NOT modify the frontend UI or React components.
+Do NOT remove any existing routes or database tables.
+
+Your task is ONLY to extend backend functionality and improve system behavior while keeping the current frontend exactly the same.
+
+---
+
+OBJECTIVE
+
+Upgrade LeadHunter AI into a stable AI-powered job discovery system with:
+
+job suggestions
+real job links
+current openings only
+dashboard refresh
+CSV export
+job analytics
+resume match scoring
+AI job summaries
+job alerts
+
+---
+
+1. SEARCH SUGGESTIONS
+
+Add backend endpoint:
+
+GET /api/job-suggestions
+
+Return role suggestions including:
+
+Software Engineer
+Full Stack Developer
+Frontend Developer
+Backend Developer
+Web Developer
+Mobile App Developer
+Android Developer
+iOS Developer
+Game Developer
+Embedded Systems Developer
+AI Engineer
+Machine Learning Engineer
+Data Scientist
+Data Analyst
+DevOps Engineer
+Cloud Engineer
+Cybersecurity Analyst
+QA Engineer
+Automation Test Engineer
+Graphic Designer
+
+Frontend search input can optionally call this endpoint to show suggestions.
+
+---
+
+2. REAL JOB LINKS
+
+Ensure all collected jobs contain valid URLs.
+
+Allowed domains:
+
+linkedin.com
+naukri.com
+internshala.com
+wellfound.com
+
+If job_url is invalid, discard the record.
+
+---
+
+3. CURRENT OPENINGS ONLY
+
+Filter job postings.
+
+Ignore jobs older than 30 days.
+
+Store only active job listings.
+
+---
+
+4. DASHBOARD AUTO REFRESH
+
+When the dashboard page loads or refreshes:
+
+Fetch fresh data from:
+
+GET /api/jobs
+
+Update:
+
+Total Jobs
+Total Companies
+Job table
+
+Optional auto refresh every 10 seconds.
+
+---
+
+5. CSV EXPORT
+
+Add endpoint:
+
+GET /api/jobs/export-csv
+
+Steps:
+
+Fetch jobs from database.
+Convert JSON to CSV using json2csv.
+Return file download.
+
+CSV columns:
+
+Job Title
+Company
+Location
+Source
+Job URL
+Date Added
+
+---
+
+6. JOB ANALYTICS
+
+Add endpoint:
+
+GET /api/jobs/analytics
+
+Return statistics such as:
+
+totalJobs
+jobsByPlatform
+topCompanies
+mostSearchedRoles
+
+---
+
+7. RESUME MATCH SCORE
+
+Add endpoint:
+
+POST /api/resume-match
+
+Input:
+
+resumeText
+jobDescription
+
+Process:
+
+Use simple keyword matching.
+
+Return match score from 0 to 100.
+
+Example:
+
+{
+jobTitle: "AI Engineer",
+matchScore: 87
+}
+
+---
+
+8. AI JOB SUMMARY
+
+Add endpoint:
+
+POST /api/job-summary
+
+Input:
+
+job description text
+
+Return short summary:
+
+Required skills
+Experience
+Key responsibilities
+
+---
+
+9. JOB ALERT SYSTEM
+
+Add endpoint:
+
+POST /api/job-alert
+
+Input:
+
+email
+jobRole
+location
+
+When new jobs are inserted into the database:
+
+Send email notification if matching role appears.
+
+---
+
+10. AGENT STABILITY
+
+Use Promise.allSettled for job platform searches.
+
+Platforms:
+
+LinkedIn
+Naukri
+Internshala
+Wellfound
+
+If one platform fails, continue with others.
+
+---
+
+11. DUPLICATE PROTECTION
+
+Before inserting jobs:
+
+Check if job_url already exists.
+
+Skip duplicates.
+
+---
+
+12. DAILY AUTO JOB REFRESH
+
+Add cron scheduler.
+
+Every 24 hours run job discovery automatically for common roles:
+
+software engineer
+ai engineer
+data scientist
+frontend developer
+
+---
+
+13. DEMO LOGGING
+
+Add terminal logs:
+
+Agent started
+Searching LinkedIn jobs...
+Searching Naukri jobs...
+Searching Internshala internships...
+Searching Wellfound jobs...
+Jobs saved to database
+Agent completed successfully
+
+---
+
+14. FALLBACK SAFETY
+
+If scraping fails due to anti-bot protection:
+
+Return fallback sample data so dashboard still displays:
+
+20 jobs
+10 companies.
+
+---
+
+FINAL RESULT
+
+The system becomes a stable AI job discovery platform that:
+
+collects real job listings
+filters active openings
+refreshes dashboard automatically
+exports CSV
+provides analytics
+calculates resume match scores
+generates AI job summaries
+sends job alerts
+
+All without changing the existing frontend UI.

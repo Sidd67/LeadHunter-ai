@@ -1,0 +1,155 @@
+IMPORTANT: Do NOT delete or overwrite the existing project files.
+
+This project (LeadHunter AI) is already partially implemented in the Replit workspace. Your job is to IMPROVE and EXTEND the current implementation without breaking existing functionality.
+
+Rules:
+
+1. Do NOT remove existing code.
+2. Do NOT regenerate the entire project.
+3. Only modify the necessary backend and agent logic files.
+4. Keep the current frontend UI, database schema, and routes intact unless changes are required.
+
+Goal:
+Fix the AI Agent so that clicking "Deploy AI Agent" actually performs a working job search and returns results.
+
+---
+
+Fix Search Logic
+
+The job role search must be case-insensitive.
+
+Normalize input like this:
+
+const normalizedRole = jobRole.toLowerCase().trim();
+
+Inputs like these must behave the same:
+
+AI Engineer
+ai engineer
+Ai Engineer
+AI ENGINEER
+
+---
+
+Agent Behavior
+
+When the user clicks "Deploy AI Agent":
+
+POST /start-agent should run a job discovery workflow.
+
+The agent must search real job websites.
+
+Target job platforms:
+
+LinkedIn Jobs
+Naukri.com
+Internshala
+Wellfound
+
+---
+
+Search URLs
+
+Use the following patterns:
+
+LinkedIn:
+https://www.linkedin.com/jobs/search/?keywords={jobRole}&location={location}
+
+Naukri:
+https://www.naukri.com/{jobRole}-jobs-in-{location}
+
+Internshala:
+https://internshala.com/internships/{jobRole}-internship
+
+Wellfound:
+https://wellfound.com/jobs
+
+---
+
+Data Extraction
+
+From each job listing extract:
+
+job_title
+company_name
+location
+job_url
+source_platform
+
+---
+
+Result Requirements
+
+The agent must return:
+
+Minimum 20 jobs
+
+From at least 10 different companies.
+
+Remove duplicates before saving.
+
+---
+
+Database
+
+Use the existing PostgreSQL database.
+
+Insert collected jobs into the existing jobs table.
+
+Columns:
+
+job_title
+company_name
+location
+job_url
+source
+created_at
+
+---
+
+Dashboard
+
+Update the dashboard so that results appear immediately after the agent finishes.
+
+Table columns:
+
+Job Title
+Company
+Location
+Source
+Apply Link
+
+Add a badge showing the source platform:
+
+LinkedIn
+Naukri
+Internshala
+Wellfound
+
+---
+
+Console Logs (for demo)
+
+Print logs when the agent runs:
+
+Searching LinkedIn jobs...
+Searching Naukri jobs...
+Searching Internshala internships...
+Searching Wellfound jobs...
+
+---
+
+Demo Reliability
+
+If scraping fails due to anti-bot protections, generate fallback sample results so the dashboard still shows:
+
+20 jobs
+10 companies
+
+---
+
+IMPORTANT
+
+Do not restructure the entire project.
+
+Only update the AI agent logic and backend route responsible for job discovery so the Deploy AI Agent button works correctly.

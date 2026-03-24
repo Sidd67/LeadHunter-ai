@@ -1,0 +1,10 @@
+
+> @workspace/db@0.0.0 push C:\Users\kesha\OneDrive\Desktop\Lead-Hunter-Agent-master\lib\db
+> drizzle-kit push --config ./drizzle.config.ts
+
+Reading config file 'C:\Users\kesha\OneDrive\Desktop\Lead-Hunter-Agent-master\lib\db\drizzle.config.ts'
+Error  No schema files found for path config ['C:\Users\kesha\OneDrive\Desktop\Lead-Hunter-Agent-master\lib\db\src\schema\index.ts']
+Error  If path represents a file - please make sure to use .ts or other extension in the path
+C:\Users\kesha\OneDrive\Desktop\Lead-Hunter-Agent-master\lib\db:
+ΓÇëERR_PNPM_RECURSIVE_RUN_FIRST_FAILΓÇë @workspace/db@0.0.0 push: `drizzle-kit push --config ./drizzle.config.ts`
+Exit status 1

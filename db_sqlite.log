@@ -1,0 +1,8 @@
+
+> @workspace/db@0.0.0 push C:\Users\kesha\OneDrive\Desktop\Lead-Hunter-Agent-master\lib\db
+> drizzle-kit push --config ./drizzle.config.ts
+
+Reading config file 'C:\Users\kesha\OneDrive\Desktop\Lead-Hunter-Agent-master\lib\db\drizzle.config.ts'
+[Γú╖] Pulling schema from database...
+[2K[1G[Γ£ô] Pulling schema from database...
+[Γ£ô] Changes applied

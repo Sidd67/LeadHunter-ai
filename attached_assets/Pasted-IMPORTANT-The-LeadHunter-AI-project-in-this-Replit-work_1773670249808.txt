@@ -1,0 +1,271 @@
+IMPORTANT: The LeadHunter AI project in this Replit workspace is already working correctly.
+
+DO NOT regenerate the project.
+DO NOT delete existing files.
+DO NOT modify the frontend UI or React components.
+DO NOT remove any existing routes, tables, or features.
+
+Only extend and polish the backend system to improve stability, performance, and data quality.
+
+---
+
+PROJECT GOAL
+
+Upgrade the current backend to improve reliability, real job validation, analytics, alerts, and CSV export while keeping the existing frontend untouched.
+
+---
+
+1. JOB URL VALIDATION
+
+Ensure every job stored in the database has a valid job link.
+
+Allowed domains:
+
+linkedin.com
+naukri.com
+internshala.com
+wellfound.com
+
+Before inserting a job:
+
+* Validate job_url
+* Skip the job if the URL does not belong to these domains.
+
+---
+
+2. CURRENT OPENINGS FILTER
+
+Ensure the system only stores recent jobs.
+
+Rules:
+
+Ignore jobs older than 30 days.
+
+When scraping:
+
+Check job posting date.
+
+Discard outdated listings.
+
+---
+
+3. DUPLICATE JOB PROTECTION
+
+Before inserting jobs:
+
+Check if job_url already exists in the database.
+
+If duplicate exists:
+
+Skip insertion.
+
+---
+
+4. AGENT STABILITY
+
+Use Promise.allSettled for platform searches.
+
+Platforms:
+
+LinkedIn
+Naukri
+Internshala
+Wellfound
+
+If one platform fails, continue with the others.
+
+---
+
+5. DAILY JOB REFRESH
+
+Add a cron scheduler using node-cron.
+
+Run every day at 02:00 AM.
+
+Automatically refresh jobs for:
+
+software engineer
+ai engineer
+data scientist
+frontend developer
+
+Insert new jobs into the database.
+
+---
+
+6. DASHBOARD DATA REFRESH
+
+Ensure that when the dashboard loads or the page refreshes, it fetches fresh job data using:
+
+GET /api/jobs
+
+This guarantees the dashboard always shows the latest data.
+
+---
+
+7. CSV EXPORT ENDPOINT
+
+Ensure the endpoint exists and works:
+
+GET /api/jobs/export-csv
+
+Steps:
+
+Fetch jobs from database.
+Convert JSON → CSV using json2csv.
+Return file download.
+
+Columns:
+
+Job Title
+Company
+Location
+Source
+Job URL
+Date Added
+
+---
+
+8. JOB ANALYTICS ENDPOINT
+
+Ensure endpoint:
+
+GET /api/jobs/analytics
+
+Return:
+
+totalJobs
+jobsByPlatform
+topCompanies
+mostSearchedRoles
+
+Data must be calculated from the database.
+
+---
+
+9. RESUME MATCH ENDPOINT
+
+Ensure endpoint:
+
+POST /api/resume-match
+
+Input:
+
+resumeText
+jobDescription
+
+Process:
+
+Compare keywords between resume and job description.
+
+Return:
+
+matchScore (0–100)
+matchedKeywords
+missingKeywords
+
+---
+
+10. JOB SUMMARY ENDPOINT
+
+Ensure endpoint:
+
+POST /api/job-summary
+
+Input:
+
+job description text.
+
+Return:
+
+requiredSkills
+experienceLevel
+keyResponsibilities
+
+---
+
+11. JOB ALERT SYSTEM
+
+Ensure endpoint:
+
+POST /api/job-alert
+
+Input:
+
+email
+jobRole
+location
+
+Store subscriptions in job_alerts table.
+
+Prevent duplicate subscriptions.
+
+Future email delivery can integrate with providers like SendGrid or Resend.
+
+---
+
+12. AUTO APPLY TRACKING
+
+Ensure the applications table works correctly.
+
+Columns:
+
+job_title
+company_name
+job_url
+status
+applied_at
+
+Statuses:
+
+pending
+applied
+failed
+
+Endpoint:
+
+POST /api/auto-apply
+
+---
+
+13. LOGGING FOR DEMO
+
+Add clear logs in the terminal:
+
+Agent started
+Searching LinkedIn jobs...
+Searching Naukri jobs...
+Searching Internshala internships...
+Searching Wellfound jobs...
+Jobs saved to database
+Agent completed successfully
+
+---
+
+14. FALLBACK SAFETY
+
+If scraping fails due to anti-bot protections:
+
+Return fallback sample data so the dashboard still displays:
+
+20 jobs
+10 companies
+
+Do not crash the server.
+
+---
+
+FINAL RESULT
+
+A stable AI job discovery backend that:
+
+collects real job listings
+filters active openings
+exports CSV files
+provides analytics
+matches resumes with jobs
+generates job summaries
+supports job alerts
+tracks auto applications
+
+while keeping the existing frontend unchanged.

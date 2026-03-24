@@ -1,0 +1,128 @@
+IMPORTANT: The LeadHunter AI project is already implemented and working.
+
+Do NOT regenerate the project.
+Do NOT redesign or restructure the frontend UI.
+Do NOT delete existing files or routes.
+
+Only add small enhancements so the current system continues to work normally.
+
+---
+
+FEATURE 1 — SEARCH SUGGESTIONS
+
+Add autocomplete suggestions for the job role search input.
+
+Create a backend endpoint:
+
+GET /api/job-suggestions
+
+Return a list of job roles such as:
+
+Software Engineer
+Full Stack Developer
+Frontend Developer
+Backend Developer
+Web Developer
+Mobile App Developer
+Android Developer
+iOS Developer
+Game Developer
+Embedded Systems Developer
+AI Engineer
+Machine Learning Engineer
+Data Scientist
+Data Analyst
+DevOps Engineer
+Cloud Engineer
+Cybersecurity Analyst
+QA Engineer
+Automation Test Engineer
+
+Behavior:
+
+When the user starts typing in the search field, the system should fetch suggestions from /api/job-suggestions and filter results based on the typed text.
+
+Example:
+
+User types: "AI"
+
+Suggestions shown:
+
+AI Engineer
+AI Developer
+AI Researcher
+
+---
+
+FEATURE 2 — DASHBOARD RESET ON PAGE REFRESH
+
+Currently the dashboard shows counters such as:
+
+Total Jobs
+Total Companies
+Agent Status
+
+Modify the frontend logic so that when the page reloads or refreshes:
+
+Dashboard counters reset to:
+
+Total Jobs = 0
+Total Companies = 0
+Agent Status = Idle
+
+After reset, the system can fetch fresh data from the backend again.
+
+Implementation idea:
+
+Use local state instead of persistent storage.
+
+Do NOT store dashboard counts in localStorage or sessionStorage.
+
+---
+
+FEATURE 3 — SAFE REFRESH BEHAVIOR
+
+When the page refreshes:
+
+1. Reset dashboard counters
+2. Fetch fresh job data from:
+
+GET /api/jobs
+
+3. Update dashboard again.
+
+---
+
+FEATURE 4 — STABILITY
+
+If API requests fail during refresh:
+
+Display a friendly message:
+
+"Loading job data..."
+
+Retry fetch after 3 seconds.
+
+Do not crash the UI.
+
+---
+
+IMPORTANT
+
+Do not change existing routes:
+
+/api/start-agent
+/api/jobs
+/api/agent-status
+
+Only add:
+
+/api/job-suggestions
+
+and improve dashboard refresh behavior.
+
+---
+
+GOAL
+
+Add search suggestions and reset dashboard counters on refresh while keeping the entire existing UI and backend system stable.
