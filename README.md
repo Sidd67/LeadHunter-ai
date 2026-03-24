@@ -1,206 +1,66 @@
-# LeadHunter AI
+# LeadHunter AI 🤖
+**Autonomous Sourcing Agent built with TinyFish API**
 
-> AI agent that automatically finds company leads from the web.
-
-## Project Overview
-
-LeadHunter AI is a full-stack web application that uses an AI-powered agent to automatically discover business leads from the internet. You specify an industry and location, and the agent:
-
-1. Searches the web for matching companies
-2. Opens each company website
-3. Extracts: company name, founder name, email, and LinkedIn profile
-4. Saves all results to a database
-
-You can then browse all collected leads in a clean, filterable dashboard.
+LeadHunter AI is an autonomous lead generation and job sourcing platform that automates the tedious process of finding and validating professional opportunities. It scours multiple platforms (LinkedIn, Naukri, Wellfound, etc.) and prioritizes official "Direct Career Page" links to ensure you get the highest quality application sources.
 
 ---
 
-## Tech Stack
+## 🚀 Key Features
+- **Autonomous Sourcing**: Powered by TinyFish API for human-like web navigation.
+- **Direct Link Priority**: Automatically identifies and extracts official company career pages.
+- **Self-Cleaning Pipeline**: Automated 4:00 AM refresh and 30-day cleanup cycle.
+- **Professional Dashboard**: Sleek React-based interface with glassmorphism aesthetics.
+- **Team Context Integrated**: Capture team descriptions to attract high-quality talent.
 
-| Layer     | Technology                          |
-|-----------|-------------------------------------|
-| Frontend  | React + Vite + Tailwind CSS         |
-| Backend   | Node.js + Express 5                 |
-| Database  | PostgreSQL + Drizzle ORM            |
-| API Layer | OpenAPI 3.1 + Orval codegen         |
-| State     | TanStack React Query                |
+## 🛠️ Technology Stack
+- **AI Agent**: TinyFish API
+- **Frontend**: Vite, React, Tailwind CSS, Framer Motion
+- **Backend**: Express.js, TypeScript
+- **Database**: Drizzle ORM + SQLite (Local) / LibSQL (Cloud)
+- **Deployment**: Optimized for Vercel Monorepo
 
----
-
-## Folder Structure
-
-```
-leadhunter-ai/
-├── artifacts/
-│   ├── api-server/             # Express backend
-│   │   └── src/
-│   │       ├── agents/
-│   │       │   └── leadAgent.ts    # AI agent logic
-│   │       ├── routes/
-│   │       │   ├── leads.ts        # /leads, /start-agent, /agent-status
-│   │       │   └── health.ts       # /healthz
-│   │       └── app.ts
-│   └── leadhunter-ai/          # React frontend
-│       └── src/
-│           ├── pages/
-│           │   ├── home.tsx        # Landing page
-│           │   ├── search.tsx      # Lead Search page
-│           │   └── dashboard.tsx   # Leads Dashboard
-│           └── components/
-├── lib/
-│   ├── api-spec/
-│   │   └── openapi.yaml        # API contract (source of truth)
-│   ├── api-client-react/       # Generated React Query hooks
-│   ├── api-zod/                # Generated Zod validators
-│   └── db/
-│       └── src/schema/
-│           └── leads.ts        # Database table schema
-└── README.md
-```
-
----
-
-## API Endpoints
-
-| Method | Path             | Description                           |
-|--------|------------------|---------------------------------------|
-| POST   | `/api/start-agent` | Start the AI lead search agent       |
-| GET    | `/api/leads`     | Get all collected leads (filterable)  |
-| GET    | `/api/agent-status` | Check agent running status         |
-| GET    | `/api/healthz`   | Health check                         |
-
-### POST `/api/start-agent`
-
-**Request body:**
-```json
-{
-  "industry": "AI startups",
-  "location": "India"
-}
-```
-
-**Response:**
-```json
-{
-  "success": true,
-  "message": "AI agent started! Searching for AI startups companies in India.",
-  "jobId": "job_1710000000000_abc123"
-}
-```
-
-### GET `/api/leads`
-
-**Query params:** `?industry=AI+startups&location=India` (both optional)
-
-**Response:**
-```json
-{
-  "leads": [
-    {
-      "id": 1,
-      "companyName": "AI Hub",
-      "founderName": "Arjun Sharma",
-      "email": "arjun@ai-hub.india.io",
-      "linkedinUrl": "https://linkedin.com/in/arjun-sharma",
-      "website": "https://ai-hub.india.io",
-      "industry": "AI startups",
-      "location": "India",
-      "dateCollected": "2024-03-15T10:00:00.000Z"
-    }
-  ],
-  "total": 1
-}
-```
-
----
-
-## How the AI Agent Works
-
-The agent (`artifacts/api-server/src/agents/leadAgent.ts`) follows this flow:
-
-```
-User Input (industry + location)
-        ↓
-Step 1: discoverCompanyUrls()
-  → Generates candidate company URLs based on industry/location keywords
-  → In production: calls TinyFish Web Agent API to search Google
-
-Step 2 & 3: scrapeCompanyInfo() (for each URL, up to 10)
-  → Visits the company website
-  → Extracts founder name, email, LinkedIn URL
-  → In production: uses headless browser + AI parsing
-
-Step 4: Save to Database
-  → Inserts lead record into PostgreSQL via Drizzle ORM
-  → Updates live "leadsFound" counter visible in the UI
-```
-
-The agent runs **asynchronously** — it starts immediately and continues in the background while the UI polls `/api/agent-status` every 2 seconds to show progress.
-
----
-
-## Installation & Setup
+## 📦 Getting Started
 
 ### Prerequisites
+- Node.js (v18+)
+- pnpm
 
-- Node.js 18+
-- pnpm 9+
-- PostgreSQL database (or Replit built-in DB)
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Sidd67/LeadHunter-ai.git
+   cd LeadHunter-ai
+   ```
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+3. Set up environment variables:
+   Create a `.env` file in the root with:
+   ```env
+   TINYFISH_API_KEY=your_api_key_here
+   PORT=8080
+   BASE_PATH=/
+   ```
 
-### 1. Clone & Install
+### Running Locally
+1. Start the Backend API:
+   ```bash
+   cd artifacts/api-server
+   pnpm run dev
+   ```
+2. Start the Frontend Dashboard:
+   ```bash
+   cd artifacts/leadhunter-ai
+   pnpm run dev
+   ```
 
-```bash
-git clone <repo-url>
-cd leadhunter-ai
-pnpm install
-```
-
-### 2. Environment Variables
-
-Create a `.env` file or set these in your environment:
-
-```env
-DATABASE_URL=postgresql://user:password@localhost:5432/leadhunter
-PORT=8080
-```
-
-### 3. Push Database Schema
-
-```bash
-pnpm --filter @workspace/db run push
-```
-
-### 4. Run Development Servers
-
-Start the backend:
-```bash
-pnpm --filter @workspace/api-server run dev
-```
-
-Start the frontend (in a separate terminal):
-```bash
-pnpm --filter @workspace/leadhunter-ai run dev
-```
-
----
-
-## Demo Instructions
-
-1. Open the app in your browser
-2. On the **Landing Page**, click **"Start Lead Search"**
-3. On the **Search Page**:
-   - Enter an industry (e.g., `AI startups`)
-   - Enter a location (e.g., `India`)
-   - Click **"Deploy AI Agent"**
-4. Watch the live status indicator — it shows how many leads have been found in real time
-5. When complete, click **"View Leads"** to go to the Dashboard
-6. On the **Dashboard**, you can:
-   - Browse all collected leads in a table
-   - Filter by industry or location
-   - See company name, founder, email, LinkedIn, and collection date
+## 🌐 Deployment (Vercel)
+This project is pre-configured for Vercel deployment. 
+1. Connect your repository to Vercel.
+2. Set the **Root Directory** to `.` 
+3. Configure **Build Command** to `pnpm build` and **Output Directory** to `artifacts/leadhunter-ai/dist/public`.
+4. Add your `DATABASE_URL` (Turso) and `TINYFISH_API_KEY` to Vercel Environment Variables.
 
 ---
-
-## Extending the Agent
-
-To connect a real web browsing agent (e.g., TinyFish Web Agent API), replace the `discoverCompanyUrls()` and `scrapeCompanyInfo()` functions in `artifacts/api-server/src/agents/leadAgent.ts` with real API calls. The rest of the architecture (async job management, DB persistence, live status polling) is already in place.
+*Developed as part of the Autonomous Agent Hackathon Challenge.*
